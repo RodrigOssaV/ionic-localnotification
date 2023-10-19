@@ -9,6 +9,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 export class HomePage {
 
   template = {
+    message: '',
     hour: 0,
     minutes: 0
   }
@@ -26,7 +27,7 @@ export class HomePage {
       notifications: [
         {
           title: 'Important information.',
-          body: 'Remembering close the user session. Thanks!',
+          body: this.template.message,
           id: 1,//Math.floor(Math.random() * 10000) + 1,
           schedule: {
             at: notificationTime, // Display the notification after 1 second
@@ -40,7 +41,18 @@ export class HomePage {
           // extra: null,
         },
       ],
+    }).then(result => {
+      console.log('this is result: ', result);
     })
+      .then(data => {
+        console.log('this is data: ', data)
+        this.template.hour = 0;
+        this.template.message = '';
+        this.template.minutes = 0;
+      })
+      .catch(e => {
+        console.log('oh no! this is an error! ', e);
+      })
   }
 
 }

@@ -29,6 +29,9 @@
             min="0"
             [(ngModel)]="template.hour"
             value="{{template.hour}}"
+            (ionFocus)="ionFocusHourOrMinutes($event, 1)"
+            (ionBlur)="ionBlurHourOrMinutes($event, 1)"
+            (ionInput)="ionInputHourOrMinutes($event, 1)"
           ></ion-input>
         </ion-item>
       </ion-col>
@@ -43,6 +46,9 @@
             min="0"
             [(ngModel)]="template.minutes"
             value="{{template.minutes}}"
+            (ionFocus)="ionFocusHourOrMinutes($event, 2)"
+            (ionBlur)="ionBlurHourOrMinutes($event, 2)"
+            (ionInput)="ionInputHourOrMinutes($event, 2)"
           ></ion-input>
         </ion-item>
       </ion-col>

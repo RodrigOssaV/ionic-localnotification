@@ -1,0 +1,54 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-input
+          label="Message notification"
+          labelPlacement="floating"
+          placeholder="Write your message notification here"
+          [(ngModel)]="globalService.template.message"
+          value="{{globalService.template.message}}"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-input
+          label="Hour"
+          type="number"
+          placeholder="00"
+          labelPlacement="floating"
+          max="24"
+          min="0"
+          [(ngModel)]="globalService.template.hour"
+          value="{{globalService.template.hour}}"
+          (ionFocus)="ionFocusHourOrMinutes($event, 1)"
+          (ionBlur)="ionBlurHourOrMinutes($event, 1)"
+          (ionInput)="ionInputHourOrMinutes($event, 1)"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-input
+          label="Minutes"
+          type="number"
+          placeholder="00"
+          labelPlacement="floating"
+          max="59"
+          min="0"
+          [(ngModel)]="globalService.template.minutes"
+          value="{{globalService.template.minutes}}"
+          (ionFocus)="ionFocusHourOrMinutes($event, 2)"
+          (ionBlur)="ionBlurHourOrMinutes($event, 2)"
+          (ionInput)="ionInputHourOrMinutes($event, 2)"
+        ></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12">
+      <ion-button (click)="testLocalNotifications()" expand="block"
+        >Show Notification</ion-button
+      >
+    </ion-col>
+  </ion-row>
+</ion-grid>

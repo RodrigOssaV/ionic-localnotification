@@ -4,59 +4,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item>
-          <ion-input
-            label="Message notification"
-            labelPlacement="floating"
-            placeholder="Write your message notification here"
-            [(ngModel)]="template.message"
-            value="{{template.message}}"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item>
-          <ion-input
-            label="Hour"
-            type="number"
-            placeholder="00"
-            labelPlacement="floating"
-            max="24"
-            min="0"
-            [(ngModel)]="template.hour"
-            value="{{template.hour}}"
-            (ionFocus)="ionFocusHourOrMinutes($event, 1)"
-            (ionBlur)="ionBlurHourOrMinutes($event, 1)"
-            (ionInput)="ionInputHourOrMinutes($event, 1)"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item>
-          <ion-input
-            label="Minutes"
-            type="number"
-            placeholder="00"
-            labelPlacement="floating"
-            max="59"
-            min="0"
-            [(ngModel)]="template.minutes"
-            value="{{template.minutes}}"
-            (ionFocus)="ionFocusHourOrMinutes($event, 2)"
-            (ionBlur)="ionBlurHourOrMinutes($event, 2)"
-            (ionInput)="ionInputHourOrMinutes($event, 2)"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="12">
-        <ion-button (click)="testLocalNotifications()" expand="block"
-          >Show Notification</ion-button
-        >
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <app-section-settings></app-section-settings>
+  <ion-card>
+    <app-section-notification></app-section-notification>
+  </ion-card>
 </ion-content>

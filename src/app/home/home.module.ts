@@ -7,6 +7,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { SectionSettingsModule } from '../components/section-settings/section-settings.module';
 import { SectionNotificationModule } from '../components/section-notification/section-notification.module';
 import { SectionFooterModule } from '../components/section-footer/section-footer.module';
+import { SectionShownotificationModule } from '../components/section-shownotification/section-shownotification.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SectionFooterModule } from '../components/section-footer/section-footer
     HomePageRoutingModule,
     SectionSettingsModule,
     SectionNotificationModule,
-    SectionFooterModule
+    SectionShownotificationModule,
+    SectionFooterModule,
   ],
   declarations: [HomePage]
 })

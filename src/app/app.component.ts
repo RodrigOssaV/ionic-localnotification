@@ -11,6 +11,7 @@ export class AppComponent {
   constructor(private platform: Platform, private globalService: GlobalService) {
     this.platform.ready().then(async () => {
       await this.globalService.checkPermissionsNotification();
+      await this.globalService.checkAppModeTheme();
     })
   }
 }

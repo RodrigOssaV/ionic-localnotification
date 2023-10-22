@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
+import { Preferences } from '@capacitor/preferences';
 import { AlertController } from '@ionic/angular';
 
 @Injectable({
@@ -20,10 +21,16 @@ export class GlobalService {
 
   disabledButttonShow: boolean = false;
 
+  darkMode: boolean = false;
+
+  dataShowNotification: any[] = [];
+  isThereDataToShow: boolean = false;
+
   constructor(private alertController: AlertController) { }
 
   async handleTimeNotification(data: any, time: any){
     console.log(data);
+    await this.handleNotification(data);
     // console.log(!this.isAvaibleInputHour, !this.isAvaibleInputMinutes);
     let now_hour = new Date().getHours().toString();
     let now_minutes = new Date().getMinutes().toString();
@@ -141,5 +148,36 @@ export class GlobalService {
       ]
 
     }).then(async alert => await alert.present());
+  }
+
+  async refreshContent(event: any){
+    setTimeout(async () => {
+      this.cleanTemplate();
+      await this.checkPermissionsNotification();
+      event.target.complete();
+    }, 2000);
+  }
+
+  toggleDarkMode(){
+    this.darkMode = !this.darkMode;
+    document.body.classList.toggle('dark', this.darkMode);
+    if(this.darkMode){
+      Preferences.set({key: 'darkModeActivated', value: 'true'});
+    }else{
+      Preferences.set({key: 'darkModeActivated', value: 'false'});
+    }
+  }
+
+  async checkAppModeTheme(){
+    const checkIsDarkMode = await Preferences.get({key: 'darkModeActivated'});
+    checkIsDarkMode.value == 'true' ? (this.darkMode = true) : (this.darkMode = false);
+    document.body.classList.toggle('dark', this.darkMode);
+  }
+
+  async handleNotification(data: any){
+    console.log('this is notification ', data);
+    this.dataShowNotification.push(data);
+    this.isThereDataToShow = true;
+    console.log(this.dataShowNotification);
   }
 }

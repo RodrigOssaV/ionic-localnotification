@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
+import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class GlobalService {
   isAvaibleInputHour: boolean = false;
   isAvaibleInputMinutes: boolean = false;
 
-  constructor() { }
+  disabledButttonShow: boolean = false;
+
+  constructor(private alertController: AlertController) { }
 
   async handleTimeNotification(data: any, time: any){
     console.log(data);
@@ -86,5 +89,57 @@ export class GlobalService {
     this.template.hour = new Date().getHours().toString();
     this.template.message = '';
     this.template.minutes = new Date().getMinutes().toString();
+  }
+
+  async checkPermissionsNotification(){
+    await LocalNotifications.checkPermissions()
+      .then(result => {
+        return result
+      })
+      .then(async data => {
+        console.log(data);
+        let display = data.display;
+        console.log('this is display value: ', display);
+
+        (display === 'granted') ? console.log('can show notification') : await this.handleAlertPermissionNotification();
+      })
+      .catch(e => console.log(e))
+  }
+
+  async requestPermissionsNotification(){
+    await LocalNotifications.requestPermissions()
+      .then(result => {
+        return result
+      })
+      .then(data => {
+        console.log('this is data ', data);
+        this.disabledButttonShow = false;
+      })
+      .catch(err => console.log(err))
+  }
+
+  async handleAlertPermissionNotification(){
+    await this.alertController.create({
+      header: 'Notification permission',
+      subHeader: 'To use this application you must have the option to accept notifications.',
+      message: 'Do you agree to accept notifications from this application on your cell phone?',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'confirm',
+          handler: async () => {
+            await this.requestPermissionsNotification();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: async (alert) => {
+            this.disabledButttonShow = true;
+          }
+        }
+      ]
+
+    }).then(async alert => await alert.present());
   }
 }

@@ -27,7 +27,7 @@ export class HomePage {
     // FIXME if i can implement the list, the notifications that were displayed in time, implement a notice to the user.
     // FIXME button for RETRY this same notification for the other day (?).
     // CHECK refresh application. (20/10)
-    // CHECK button toggletheme dark-light. (22/10)
+    // CHECK button toggle theme dark-light. (22/10)
     // CHECK implement validate input numer, starting with 0 ; it's annoying. (19/10)
     // CHECK implement validate time past now. (19/10)
     // FIXME spoken messages

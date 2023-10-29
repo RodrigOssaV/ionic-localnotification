@@ -18,7 +18,7 @@
   <ion-card>
     <app-section-notification></app-section-notification>
   </ion-card>
-  <ion-card>
+  <ion-card *ngIf="globalService.isThereDataToShow">
     <app-section-shownotification></app-section-shownotification>
   </ion-card>
 </ion-content>
